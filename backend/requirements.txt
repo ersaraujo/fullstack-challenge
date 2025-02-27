@@ -1,0 +1,10 @@
+Django==4.2
+djangorestframework==3.14.0
+
+django-cors-headers==4.2.0
+
+# Biblioteca para testes
+pytest==7.3.1
+pytest-django==4.5.2
+
+pip-tools==6.13.0
