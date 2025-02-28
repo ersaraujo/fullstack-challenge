@@ -176,6 +176,7 @@ function App() {
               ></div>
               <span className="legend-name">
                 {p.first_name}
+                &nbsp;
                 {p.last_name}
               </span>
             </div>
