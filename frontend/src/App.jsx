@@ -126,7 +126,7 @@ function App() {
         <h2>{participants.length} pessoa(s) contribuíram</h2> {/* Exibe o número de participantes */}
       </div>
 
-      <div className = "chart-table-container">
+      <div className = "content">
         <div className = "table-container">
           <table>
             <thead>
