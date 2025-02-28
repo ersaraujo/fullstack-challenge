@@ -17,10 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from participants.views import ParticipantViewSet
+from participants.views import EventViewSet, ParticipantViewSet
 
 router = DefaultRouter()
-router.register(r'participants', ParticipantViewSet)
+router.register(r'events', EventViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

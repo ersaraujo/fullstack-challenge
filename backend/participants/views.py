@@ -1,32 +1,20 @@
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Participant
-from .serializers import ParticipantSerializer
+from rest_framework.decorators import action
+from .models import Event, Participant
+from .serializers import EventSerializer, ParticipantSerializer
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    @action(detail=True, methods=['get'])
+    def participants(self, request, pk=None):
+        event = self.get_object()
+        participants = event.participants.all()
+        serializer = ParticipantSerializer(participants, many=True)
+        return Response(serializer.data)
 
 class ParticipantViewSet(viewsets.ModelViewSet):
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
-
-@api_view(['POST'])
-def add_participant(request):
-    if request.method == 'POST':
-        data = request.data
-
-        name = data.get('name')
-        surname = data.get('surname')
-        participation = data.get('participation')
-
-        participant, created = Participant.objects.get_or_create(
-            name=name, surname=surname, defaults={'participation': participation}
-        )
-
-        if not created:
-            participant.participation += participation
-            participant.save()
-
-        serializer = ParticipantSerializer(participant)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
